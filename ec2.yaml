@@ -32,7 +32,7 @@
 
     - name: Wait for SSH
       wait_for:
-        host: "{{ item.public_dns_name }}"
+        host: "{{ item.public_ip }}"
         port: 22
         delay: 10
         timeout: 320
