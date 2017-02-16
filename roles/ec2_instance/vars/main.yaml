@@ -1,0 +1,5 @@
+key_name: ashley-rdp-key
+instance_type: t2.micro
+image: ami-9c363cf8
+group: default
+vpc_subnet_id: subnet-2bdd3050
