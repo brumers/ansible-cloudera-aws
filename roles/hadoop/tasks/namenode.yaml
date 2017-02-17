@@ -3,25 +3,20 @@
     name: hadoop-hdfs-namenode
     state: latest
 
-- name: Install SecondaryNameNode
-  yum:
-    name: hadoop-hdfs-secondarynamenode
-    state: latest
-
 - name: Create NameNode Data directories
   file:
-    dest: {{ dfs_namenode_name_dir.replace('file://', '').split(',') }}
+    dest: /data/1/dfs/nn 
     owner: hdfs
     group: hdfs
     recurse: yes
+    state: directory
     mode: 0700
+  become: true 
 
 - name: Format NameNode
   command: sudo -u hdfs hdfs namenode -format -force
-  when: ansible_hostname == groups['launched'][0]
 
 - name: Start NameNode
   service:
     name: hadoop-hdfs-namenode
     state: started
-  when: ansible_hostname == groups['launched'][0]

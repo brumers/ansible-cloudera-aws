@@ -1,6 +1,6 @@
 - name: Install Data Node packages
   yum:
-    name: {{ item }}
+    name: "{{ item }}"
     state: latest
     with_items:
       - hadoop-yarn-nodemanager
@@ -13,6 +13,7 @@
     owner: hdfs
     group: hdfs
     recurse: yes
+    state: directory
     mode: 0700
 
 - name: Create Resource Manager Data directories
@@ -20,17 +21,17 @@
     dest:
     owner: yarn
     group: yarn
+    state: directory
     recurse: yes
     mode: 0755
   with_items:
-    -  {{ yarn_nodemanager_local_dirs.replace('file://', '').split(',') }}
-    -  {{ yarn_nodemanager_log_dirs.replace('file://', '').split(',') }}
+    -  "{{ yarn_nodemanager_local_dirs.replace('file://', '').split(',') }}"
+    -  "{{ yarn_nodemanager_log_dirs.replace('file://', '').split(',') }}"
 
 - name: Start DataNode
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     state: start
   with_items:
     - hadoop-hdfs-datanode
     - hadoop-yarn-nodemanager
-  when: ansible_hostname != groups['launched'][0]

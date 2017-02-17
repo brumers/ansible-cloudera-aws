@@ -6,10 +6,9 @@
 - name: Install History Server
   yum:
     name: hadoop-mapreduce-historyserver
-  when: ansible_hostname == groups['launched'][0]
 
 - name: Setup HDFS
-  command: sudo -u hdfs hadoop fs {{ item }}
+  command: sudo -u hdfs hadoop fs "{{ item }}"
   with_items:
     - -mkdir /tmp
     - -chmod -R 1777 /tmp
@@ -20,16 +19,14 @@
 
 - name: start services
   tags: service
-  service: name={{ item }} state=restarted enabled=yes
+  service: name="{{ item }}" state=restarted enabled=yes
   with_items:
     - hadoop-yarn-resourcemanager
-  when: ansible_hostname == groups['launched'][0]
 
 - name: start services
   tags: service
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     state: start
   with_items:
     - hadoop-mapreduce-historyserver
-  when: ansible_hostname == groups['launched'][0]

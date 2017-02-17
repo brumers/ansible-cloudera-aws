@@ -1,7 +1,7 @@
 <configuration>
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>{{ groups['launched'][0] }}</value>
+    <value>{{ groups['master'][0] }}</value>
   </property>
   <property>
     <description>Classpath for typical applications.</description>
@@ -33,6 +33,6 @@
   <property>
     <description>Where to aggregate logs</description>
     <name>yarn.nodemanager.remote-app-log-dir</name>
-    <value>hdfs://{{ groups['namenodes'][0] }}:8020/var/log/hadoop-yarn/apps</value>
+    <value>hdfs://{{ groups['master'][0] }}:8020/var/log/hadoop-yarn/apps</value>
   </property>
 </configuration>

@@ -11,7 +11,7 @@
     - common
 
 - name: Install Zookeeper
-  hosts: launched
+  hosts: master 
   become: true
   roles:
     - zookeeper
@@ -23,19 +23,19 @@
     - {role: hadoop, deploy: 'all-servers'}
 
 - name: Deploy NameNode
-  hosts: launched
+  hosts: master 
   become: true
   roles:
     - {role: hadoop, deploy: 'namenode'}
 
 - name: Deploy DataNodes
-  hosts: launched
+  hosts: slaves 
   become: true
   roles:
     - {role: hadoop, deploy: 'datanodes'}
 
 - name: Deploy ResourceManager
-  hosts: launched
+  hosts: master 
   become: true
   roles:
     - {role: hadoop, deploy: 'resource-manager'}

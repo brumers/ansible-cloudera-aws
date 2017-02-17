@@ -16,7 +16,7 @@
 
    <property>
      <name>dfs.namenode.http-address</name>
-     <value>{{ groups['launched'][0] }}:50070</value>
+     <value>{{ groups['master'][0] }}:50070</value>
      <description>
        The address and the base port on which the dfs NameNode Web UI will listen.
      </description>

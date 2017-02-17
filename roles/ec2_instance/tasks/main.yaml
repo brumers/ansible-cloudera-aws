@@ -1,4 +1,4 @@
-- name: Launch instance
+- name: Launch instance Master
   ec2:
     key_name: "{{ key_name }}"
     instance_type: "{{ instance_type }}"
@@ -6,24 +6,45 @@
     group: "{{ group }}"
     vpc_subnet_id: "{{ vpc_subnet_id }}"
     wait: yes
-    count: 2
+    count: 1
     assign_public_ip: yes
     region: eu-west-2
     instance_tags:
-      Name: test
-  register: ec2
+      Name: cloudera_cluster_master
+  register: ec2_master
 
-- name: Add new instance to host group
+- name: Launch instance Slaves
+  ec2:
+    key_name: "{{ key_name }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ image }}"
+    group: "{{ group }}"
+    vpc_subnet_id: "{{ vpc_subnet_id }}"
+    wait: yes
+    count: 1
+    assign_public_ip: yes
+    region: eu-west-2
+    instance_tags:
+      Name: cloudera_cluster_slave
+  register: ec2_slaves
+
+- name: Add new instance to host group master
   add_host:
     hostname: "{{ item.public_ip }}"
-    groupname: launched
-  with_items: "{{ ec2.instances }}"
+    groupname: master, launched
+  with_items: "{{ ec2_master.instances }}"
+
+- name: Add new instance to host group slaves
+  add_host:
+    hostname: "{{ item.public_ip }}"
+    groupname: slaves, launched
+  with_items: "{{ ec2_slaves.instances }}"
 
 - name: Wait for SSH
   wait_for:
-    host: "{{ item.public_ip }}"
+    host: "{{ item }}"
     port: 22
     delay: 10
     timeout: 320
     state: started
-  with_items: "{{ ec2.instances }}"
+  with_items: "{{ groups['launched'] }}"

@@ -13,12 +13,12 @@
   file:
     path: /var/lib/zookeeper
     state: directory
-    owner: zoopkeeper
+    owner: zookeeper
     recurse: yes
     mode: 0755
 
 - name: Initialise Zookeeper
-  command: service zookeeper-server init
+  command: service zookeeper-server init --force
 
 - name: Start Zookeeper
   service:
