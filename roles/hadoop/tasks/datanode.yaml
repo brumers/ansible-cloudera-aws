@@ -1,24 +1,24 @@
 - name: Install Data Node packages
-  yum:
-    name: "{{ item }}"
-    state: latest
-    with_items:
-      - hadoop-yarn-nodemanager
-      - hadoop-hdfs-datanode
-      - hadoop-mapreduce
+  yum: name={{ item }} state=latest
+  with_items:
+    - hadoop-yarn-nodemanager
+    - hadoop-hdfs-datanode
+    - hadoop-mapreduce
 
 - name: Create Data directories
   file:
-    dest: "{{ dfs_datanode_data_dir.replace('file://', '').split(',') }}"
+    dest: "{{ item }}"
     owner: hdfs
     group: hdfs
     recurse: yes
     state: directory
     mode: 0700
+  with_items:
+     - "{{ dfs_datanode_data_dir.replace('file://', '').split(',') }}"
 
 - name: Create Resource Manager Data directories
   file:
-    dest:
+    dest: "{{ item }}"
     owner: yarn
     group: yarn
     state: directory
