@@ -31,7 +31,7 @@
 - name: Start DataNode
   service:
     name: "{{ item }}"
-    state: start
+    state: started
   with_items:
     - hadoop-hdfs-datanode
     - hadoop-yarn-nodemanager

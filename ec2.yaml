@@ -32,7 +32,7 @@
   hosts: slaves 
   become: true
   roles:
-    - {role: hadoop, deploy: 'datanodes'}
+    - {role: hadoop, deploy: 'datanode'}
 
 - name: Deploy ResourceManager
   hosts: master 
