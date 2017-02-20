@@ -30,13 +30,13 @@
 
 - name: Add new instance to host group master
   add_host:
-    hostname: "{{ item.public_ip }}"
+    hostname: "{{ item.private_ip }}"
     groupname: master, launched
   with_items: "{{ ec2_master.instances }}"
 
 - name: Add new instance to host group slaves
   add_host:
-    hostname: "{{ item.public_ip }}"
+    hostname: "{{ item.private_ip }}"
     groupname: slaves, launched
   with_items: "{{ ec2_slaves.instances }}"
 
