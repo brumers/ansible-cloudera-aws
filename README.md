@@ -10,4 +10,21 @@ Ansible playbook to launch Cloudera on AWS
 
 ## Building
 
-    ansible-playbook -e 'host_key_checking=False' ec2.yaml --private-key={private-key}
+    ansible-playbook ec2.yaml --private-key={private-key}
+    
+ 
+ If you need to rerun it, create a hosts file and add, create each IP address on a difference line
+     
+     [launched]
+     <All IP ADDRESSES>
+     
+     [master]
+     <Master IP ADDRESSES>
+     
+     [slaves]
+     <Slaves IP ADDRESSES>
+     <Slaves IP ADDRESSES>
+     <Slaves IP ADDRESSES>
+     
+ Then Run
+     ansible-playbook  -i hosts ec2.yaml --private-key={private-key}  --limit @{FULL PATH}/ansible-cloudera-aws/ec2.retry
