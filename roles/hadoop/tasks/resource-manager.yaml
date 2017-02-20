@@ -8,7 +8,7 @@
     name: hadoop-mapreduce-historyserver
 
 - name: Setup HDFS
-  command: sudo -u hdfs hadoop fs "{{ item }}"
+  command: sudo -u hdfs hadoop fs {{ item }}
   with_items:
     - -mkdir /tmp
     - -chmod -R 1777 /tmp
@@ -27,6 +27,6 @@
   tags: service
   service:
     name: "{{ item }}"
-    state: start
+    state: started
   with_items:
     - hadoop-mapreduce-historyserver
