@@ -40,15 +40,8 @@
   roles:
     - {role: hadoop, deploy: 'resource-manager'}
 
-- local_action:
-    module: ec2
-      instance_tags:
-        Name: cloudera_cluster_master
-      state: restarted
-
-- local_action:
-    module: ec2
-      instance_tags:
-        Name: cloudera_cluster_slave
-      state: restarted
+- name: Restart EC2 instances
+  hosts: localhost
+  roles:
+    - ec2_restart
 
