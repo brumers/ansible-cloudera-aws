@@ -27,19 +27,9 @@
 - name: download java 8
   command: 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm"'
 
-- name: install oracle java 8
-  yum:
-    name: jdk-8u121-linux-x64.rpm
-    state: present
+- name: install java 8
+  command: 'rpm -ivh jdk-8u121-linux-x64.rpm'
   become: true
-
-- name: Fetch Java version
-  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
-  register: java_version
-
-- assert:
-    that:
-      - java_version.stdout | version_compare('1.8', '>=')
 
 - name: Install ntp 
   yum:
