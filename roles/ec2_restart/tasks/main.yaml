@@ -1,11 +1,13 @@
 - local_action:
     module: ec2
+    region: eu-west-2
     instance_tags:
         Name: cloudera_cluster_master
     state: restarted
 
 - local_action:
     module: ec2
+    region: eu-west-2
     instance_tags:
         Name: cloudera_cluster_slave
     state: restarted
