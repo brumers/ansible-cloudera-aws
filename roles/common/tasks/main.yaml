@@ -33,6 +33,14 @@
     state: present
   become: true
 
+- name: Fetch Java version
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+  register: java_version
+
+- assert:
+    that:
+      - java_version.stdout | version_compare('1.8', '>=')
+
 - name: Install ntp 
   yum:
     name: ntp
