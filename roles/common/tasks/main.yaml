@@ -8,27 +8,16 @@
     state: latest
   become: true
 
-- name: Remove Open JDK Java 7
+- name: Download Oracle JDK8
+  get_url:
+    url=http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm
+    dest=/tmp
+    headers='Cookie:gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie'
+
+- name: install oracle java 8
   yum:
-    name: java-1.7.0-openjdk
-    state: removed
-
-- name: Remove Open JDK Java 6
-  yum:
-    name: java-1.6.0-openjdk
-    state: removed
-
-- name: install wget
-  yum:
-    name: wget
-    state: latest
-  become: true
-
-- name: download java 8
-  command: 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm"'
-
-- name: install java 8
-  command: 'rpm -ivh jdk-8u121-linux-x64.rpm'
+    name: /tmp/jdk-8u121-linux-x64.rpm
+    state: present
   become: true
 
 - name: Install ntp 
