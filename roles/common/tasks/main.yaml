@@ -18,16 +18,18 @@
     name: java-1.6.0-openjdk
     state: removed
 
-- name: download foo.conf
-  get_url:
-    url: "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm"
-    dest: /tmp/jdk-8u121-linux-x64.rpm
-    validate_certs: no
-    mode: 0777
+- name: install wget
+  yum:
+    name: wget
+    state: latest
+  become: true
+
+- name: download java 8
+  command: wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.rpm"
 
 - name: install oracle java 8
   yum:
-    name: /tmp/jdk-8u121-linux-x64.rpm
+    name: jdk-8u121-linux-x64.rpm
     state: present
   become: true
 
