@@ -1,3 +1,10 @@
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: restart EC2 instance
+  
+
 - name: Update all packages
   yum:
     name: '*'
