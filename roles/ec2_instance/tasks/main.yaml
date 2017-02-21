@@ -11,6 +11,7 @@
     region: eu-west-2
     instance_tags:
       Name: cloudera_cluster_master
+      cloudera-cluster: master
   register: ec2_master
 
 - name: Launch instance Slaves
@@ -26,6 +27,7 @@
     region: eu-west-2
     instance_tags:
       Name: cloudera_cluster_slave
+      cloudera-cluster: slave
   register: ec2_slaves
 
 - name: Add new instance to host group master

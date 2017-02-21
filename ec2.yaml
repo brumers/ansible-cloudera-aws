@@ -39,3 +39,11 @@
   become: true
   roles:
     - {role: hadoop, deploy: 'resource-manager'}
+
+- local_action:
+    module: ec2
+      instance_tags:
+         cloudera-cluster: master
+         cloudera-cluster: slave
+      state: restarted
+
