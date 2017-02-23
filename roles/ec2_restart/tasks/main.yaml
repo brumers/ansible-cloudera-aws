@@ -11,3 +11,13 @@
     instance_tags:
         Name: cloudera_cluster_slave
     state: restarted
+
+
+- name: Wait for SSH
+  wait_for:
+    host: "{{ item }}"
+    port: 22
+    delay: 10
+    timeout: 320
+    state: started
+  with_items: "{{ groups['launched'] }}"

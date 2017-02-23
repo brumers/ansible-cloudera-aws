@@ -10,6 +10,11 @@
   roles:
     - common
 
+- name: Restart EC2 instances
+  hosts: localhost
+  roles:
+    - ec2_restart
+
 - name: Install Zookeeper
   hosts: master 
   become: true
@@ -39,9 +44,4 @@
   become: true
   roles:
     - {role: hadoop, deploy: 'resource-manager'}
-
-- name: Restart EC2 instances
-  hosts: localhost
-  roles:
-    - ec2_restart
 
