@@ -21,7 +21,7 @@
     group: "{{ group }}"
     vpc_subnet_id: "{{ vpc_subnet_id }}"
     wait: yes
-    count: 1
+    count: 2
     assign_public_ip: yes
     region: eu-west-2
     instance_tags:
